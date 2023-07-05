@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -16,37 +16,45 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH-mm-ss", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date", nullable = false)
-    @NotEmpty
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name = "name", nullable = false)
-    @NotBlank
     @NotEmpty
+    @NotBlank
     private String name;
 
     @Column(name = "description", nullable = false)
-    @NotBlank
     @NotEmpty
+    @NotBlank
     private String description;
 
     @Column(name = "img_url", nullable = false)
     private String imgUrl;
 
     @Column(name = "price", nullable = false)
-    @NotBlank
     private BigDecimal price;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    Set<Category> productCategory;
+    private Set<Category> categories;
 
 
     public Product() {
+    }
+
+    public Product(Long id, LocalDate date, String name, String description, String imgUrl, BigDecimal price, Set<Category> categories) {
+        this.id = id;
+        this.date = date;
+        this.name = name;
+        this.description = description;
+        this.imgUrl = imgUrl;
+        this.price = price;
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -57,11 +65,11 @@ public class Product {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -95,5 +103,20 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productCategory=" + categories +
+                '}';
     }
 }

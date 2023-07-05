@@ -3,8 +3,15 @@ package br.com.compassuol.pb.challenge.msproduct.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Set;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "category")
@@ -18,6 +25,4 @@ public class Category {
     @Size(min = 2, message = "Name must be at least 2 characters long")
     private String name;
 
-    @ManyToMany(mappedBy = "productCategory")
-    Set<Product> products;
 }
