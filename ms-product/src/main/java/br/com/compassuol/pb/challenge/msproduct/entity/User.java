@@ -3,11 +3,13 @@ package br.com.compassuol.pb.challenge.msproduct.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +34,6 @@ public class User {
     private String password;
 
     /*ROLES*/
+    @ManyToMany
+    Set<Role> roles = new HashSet<>();
 }
