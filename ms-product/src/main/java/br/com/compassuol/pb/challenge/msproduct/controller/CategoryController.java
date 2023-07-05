@@ -1,6 +1,7 @@
 package br.com.compassuol.pb.challenge.msproduct.controller;
 
 import br.com.compassuol.pb.challenge.msproduct.entity.Category;
+import br.com.compassuol.pb.challenge.msproduct.payload.CategoryDTO;
 import br.com.compassuol.pb.challenge.msproduct.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
     private CategoryService categoryService;
 
@@ -19,7 +20,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        return new ResponseEntity<>(categoryService.createCategory(category), HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+        return new ResponseEntity<>(categoryService.createCategory(categoryDTO), HttpStatus.CREATED);
     }
 }

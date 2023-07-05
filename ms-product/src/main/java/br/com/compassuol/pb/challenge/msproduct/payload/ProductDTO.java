@@ -1,12 +1,14 @@
 package br.com.compassuol.pb.challenge.msproduct.payload;
 
+import br.com.compassuol.pb.challenge.msproduct.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,9 +16,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProductDTO {
     private Long id;
-    private LocalDateTime date;
+    private LocalDate date;
     private String name;
     private String description;
     private String imgUrl;
     private BigDecimal price;
+    private Set<Category> categories;
 }

@@ -1,48 +1,71 @@
 package br.com.compassuol.pb.challenge.msproduct.service;
 
 import br.com.compassuol.pb.challenge.msproduct.entity.Product;
+import br.com.compassuol.pb.challenge.msproduct.exception.ResourceNotFoundException;
 import br.com.compassuol.pb.challenge.msproduct.payload.ProductDTO;
 import br.com.compassuol.pb.challenge.msproduct.repository.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+    private CategoryService categoryService;
+    private ModelMapper mapper;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryService categoryService, ModelMapper mapper) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
+        this.mapper = mapper;
     }
 
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = mapToEntity(productDTO);
+
         Product createdProduct = productRepository.save(product);
 
-        ProductDTO prodResponse = mapToDTO(createdProduct);
-        return prodResponse;
+        return mapToDTO(createdProduct);
     }
 
-    private ProductDTO mapToDTO(Product product) {
-        ProductDTO productDTO = new ProductDTO();
+    public List<ProductDTO> findAllProducts() {
+        List<Product> products = productRepository.findAll();
 
-        productDTO.setId(product.getId());
-        productDTO.setDate(product.getDate());
-        productDTO.setDescription(product.getDescription());
-        productDTO.setName(product.getName());
-        productDTO.setImgUrl(product.getImgUrl());
-        productDTO.setPrice(product.getPrice());
-
-        return productDTO;
+        return products.stream().map(product -> mapToDTO(product)).toList();
     }
-    private Product mapToEntity(ProductDTO productDTO) {
-        Product product = new Product();
 
-        product.setId(productDTO.getId());
+    public ProductDTO updateProduct(Long productId, ProductDTO productDTO) {
+        Product product = productRepository.findById(productId).orElseThrow(() ->
+                new ResourceNotFoundException("Product", "id", productId));
+
+        product.setId(productId);
         product.setDate(productDTO.getDate());
         product.setDescription(productDTO.getDescription());
         product.setName(productDTO.getName());
         product.setImgUrl(productDTO.getImgUrl());
         product.setPrice(productDTO.getPrice());
+        product.setCategories(productDTO.getCategories());
+        Product updatedProduct = productRepository.save(product);
 
-        return  product;
+        return mapToDTO(updatedProduct);
+    }
+
+    public void deleteProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() ->
+                new ResourceNotFoundException("Product", "id", productId));
+        productRepository.delete(product);
+    }
+
+
+
+
+    private ProductDTO mapToDTO(Product product) {
+        return mapper.map(product, ProductDTO.class);
+    }
+    private Product mapToEntity(ProductDTO productDTO) {
+        return mapper.map(productDTO, Product.class);
     }
 }
