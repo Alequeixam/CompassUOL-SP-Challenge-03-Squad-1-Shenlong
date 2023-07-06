@@ -11,19 +11,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
     private ProductRepository productRepository;
-    private CategoryService categoryService;
     private ModelMapper mapper;
 
-    public ProductService(ProductRepository productRepository, CategoryService categoryService, ModelMapper mapper) {
+    public ProductService(ProductRepository productRepository, ModelMapper mapper) {
         this.productRepository = productRepository;
-        this.categoryService = categoryService;
+
         this.mapper = mapper;
     }
 
