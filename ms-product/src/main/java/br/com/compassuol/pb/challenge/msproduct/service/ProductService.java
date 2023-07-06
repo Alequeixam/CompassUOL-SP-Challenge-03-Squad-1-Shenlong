@@ -5,6 +5,10 @@ import br.com.compassuol.pb.challenge.msproduct.exception.ResourceNotFoundExcept
 import br.com.compassuol.pb.challenge.msproduct.payload.ProductDTO;
 import br.com.compassuol.pb.challenge.msproduct.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -35,6 +39,19 @@ public class ProductService {
         List<Product> products = productRepository.findAll();
 
         return products.stream().map(product -> mapToDTO(product)).toList();
+    }
+
+    public List<ProductDTO> findAllProductsPaginated(int page, int linesPerPage, String orderBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(orderBy).ascending()
+                : Sort.by(orderBy).descending();
+
+        Pageable pageable = PageRequest.of(page, linesPerPage, sort);
+
+        Page<Product> products = productRepository.findAll(pageable);
+
+        List<Product> productList = products.getContent();
+
+        return productList.stream().map(product -> mapToDTO(product)).toList();
     }
 
     public ProductDTO updateProduct(Long productId, ProductDTO productDTO) {
