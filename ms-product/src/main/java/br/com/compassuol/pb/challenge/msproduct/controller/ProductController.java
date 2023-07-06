@@ -22,16 +22,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
         return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
     }
 
-    /*@GetMapping
-    @ResponseBody
-    public List<ProductDTO> findAllProducts() {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> findProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.findProductById(id));
+    }
 
-        return productService.findAllProducts();
-    }*/
     @GetMapping
     @ResponseBody
     public List<ProductDTO> findAllProductsPaginated(
@@ -44,7 +43,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         ProductDTO prodResponse = productService.updateProduct(id, productDTO);
 
         return new ResponseEntity<>(prodResponse, HttpStatus.OK);
@@ -54,6 +53,6 @@ public class ProductController {
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
 
-        return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Product was successfully deleted", HttpStatus.OK);
     }
 }

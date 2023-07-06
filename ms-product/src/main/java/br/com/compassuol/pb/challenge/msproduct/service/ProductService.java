@@ -41,6 +41,12 @@ public class ProductService {
         return products.stream().map(product -> mapToDTO(product)).toList();
     }
 
+    public ProductDTO findProductById(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() ->
+                new ResourceNotFoundException("Product", "id", productId));
+        return mapToDTO(product);
+    }
+
     public List<ProductDTO> findAllProductsPaginated(int page, int linesPerPage, String orderBy, String direction) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(orderBy).ascending()
                 : Sort.by(orderBy).descending();
