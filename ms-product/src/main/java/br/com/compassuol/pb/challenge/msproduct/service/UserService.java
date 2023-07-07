@@ -1,6 +1,5 @@
 package br.com.compassuol.pb.challenge.msproduct.service;
 
-import br.com.compassuol.pb.challenge.msproduct.entity.Product;
 import br.com.compassuol.pb.challenge.msproduct.entity.User;
 import br.com.compassuol.pb.challenge.msproduct.exception.EmailAlreadyExistsException;
 import br.com.compassuol.pb.challenge.msproduct.exception.ResourceNotFoundException;
@@ -34,16 +33,23 @@ public class UserService {
 
     public UserDTO getUserById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException("Product", "id", userId));
+                new ResourceNotFoundException("User", "id", userId));
         return mapToDTO(user);
     }
 
     public User updateUser(Long userId, User user) {
-        User foundUser = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException("Product", "id", userId));
+        userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User", "id", userId));
 
         user.setId(userId);
         return userRepository.save(user);
+    }
+
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User", "id", userId));
+
+        userRepository.delete(user);
     }
 
     private UserDTO mapToDTO(User user) {
