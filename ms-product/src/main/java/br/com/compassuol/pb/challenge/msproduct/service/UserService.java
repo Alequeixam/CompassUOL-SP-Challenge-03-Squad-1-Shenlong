@@ -45,6 +45,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User", "id", userId));
+
+        userRepository.delete(user);
+    }
+
     private UserDTO mapToDTO(User user) {
         return mapper.map(user, UserDTO.class);
     }
