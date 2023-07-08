@@ -5,9 +5,9 @@ spring:
   application:
     name: ms-products
   datasource:
-    password: password
     url: jdbc:postgresql://localhost:5432/challenge03
     username: postgres
+    password: password
   jpa:
     hibernate:
       ddl-auto: update

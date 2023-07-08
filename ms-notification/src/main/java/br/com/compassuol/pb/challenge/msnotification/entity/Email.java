@@ -16,9 +16,10 @@ public class Email implements Serializable {
     private Long emailId;
     private String fromEmail;
     private String fromName;
+    private String toEmail;
     private String replyTo;
-    private String to;
     private String subject;
+    @Column(columnDefinition = "TEXT")
     private String body;
     private String contentType;
 }
