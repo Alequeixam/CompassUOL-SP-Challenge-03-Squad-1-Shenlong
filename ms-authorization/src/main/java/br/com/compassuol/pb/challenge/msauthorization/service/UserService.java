@@ -1,13 +1,11 @@
-package br.com.compassuol.pb.challenge.msproduct.service;
+package br.com.compassuol.pb.challenge.msauthorization.service;
 
-import br.com.compassuol.pb.challenge.msproduct.entity.User;
-import br.com.compassuol.pb.challenge.msproduct.exception.EmailAlreadyExistsException;
-import br.com.compassuol.pb.challenge.msproduct.exception.ResourceNotFoundException;
-import br.com.compassuol.pb.challenge.msproduct.payload.UserDTO;
-import br.com.compassuol.pb.challenge.msproduct.repository.UserRepository;
+import br.com.compassuol.pb.challenge.msauthorization.entity.User;
+import br.com.compassuol.pb.challenge.msauthorization.exceptions.EmailAlreadyExistsException;
+import br.com.compassuol.pb.challenge.msauthorization.exceptions.ResourceNotFoundException;
+import br.com.compassuol.pb.challenge.msauthorization.payload.UserDTO;
+import br.com.compassuol.pb.challenge.msauthorization.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +28,6 @@ public class UserService {
                 throw new EmailAlreadyExistsException("Email already registered");
             }
         }
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
     }

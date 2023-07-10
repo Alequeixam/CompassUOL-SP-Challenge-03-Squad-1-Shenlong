@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -39,4 +40,17 @@ public class RoleService {
                 new ResourceNotFoundException("Role", "id", roleId));
     }
 
+    public Role updateRole(Long roleId, Role role) {
+        Role updatedRole = roleRepository.findById(roleId).orElseThrow(() ->
+                new ResourceNotFoundException("Role", "id", roleId));
+        updatedRole.setId(roleId);
+        updatedRole.setName(role.getName());
+        return updatedRole;
+    }
+
+    public void deleteRole(Long roleId) {
+        Role role = roleRepository.findById(roleId).orElseThrow(() ->
+                new ResourceNotFoundException("Role", "id", roleId));
+        roleRepository.delete(role);
+    }
 }

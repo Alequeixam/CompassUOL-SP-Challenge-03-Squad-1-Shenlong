@@ -1,6 +1,6 @@
-package br.com.compassuol.pb.challenge.msproduct.payload;
+package br.com.compassuol.pb.challenge.msauthorization.payload;
 
-import br.com.compassuol.pb.challenge.msproduct.entity.Role;
+import br.com.compassuol.pb.challenge.msauthorization.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
