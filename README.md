@@ -17,7 +17,6 @@ git clone https://github.com/Alequeixam/CompassUOL-SP-Challenge-03-Squad-1-Shenl
 1. Start the applications with Maven
 2. The API Gateway will be accessible at http://localhost:8080
 
-
 ## API Endpoints
 The API provides the following endpoints:
 
@@ -50,6 +49,22 @@ DELETE /users/{userId} - Delete a user.
 
 
 ```
+## Purpose of each MS
+#### ms-authentication
+The goal of this microservice is to authenticate and authorize users and any request of the API.
+
+Unfortunately, as of right now it is not currently working properly.
+
+#### ms-gateway
+The gateway redirects the requests to the responsible api.
+
+#### ms-product
+The products MS controls all of the items in the database related to Product, Category, Users and Roles.
+
+#### ms-notification
+This MS is suposed to send an email notification via RabbitMQ to the user when there is a modification to a registry.
+It is currently not working as intended, even though the endpoint is properly functioning.
+
 
 
 ## Database
