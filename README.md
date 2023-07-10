@@ -50,18 +50,18 @@ DELETE /users/{userId} - Delete a user.
 
 ```
 ## Purpose of each MS
-#### ms-authentication
+### ms-authentication
 The goal of this microservice is to authenticate and authorize users and any request of the API.
 
 Unfortunately, as of right now it is not currently working properly.
 
-#### ms-gateway
+### ms-gateway
 The gateway redirects the requests to the responsible api.
 
-#### ms-product
+### ms-product
 The products MS controls all of the items in the database related to Product, Category, Users and Roles.
 
-#### ms-notification
+### ms-notification
 This MS is suposed to send an email notification via RabbitMQ to the user when there is a modification to a registry.
 It is currently not working as intended, even though the endpoint is properly functioning.
 
