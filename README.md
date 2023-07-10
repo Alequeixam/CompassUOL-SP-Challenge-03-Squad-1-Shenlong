@@ -48,12 +48,21 @@ PUT /users/{userId} - Update a user by it's id.
 DELETE /users/{userId} - Delete a user.
 
 
+GET /roles - Retrieve a list of all roles. 
+
+POST /roles - Create a new role.
+
+PUT /roles/{roleId} - Update a role by it's id.
+
+DELETE /roles/{roleId} - Delete a role.
+
+
 ```
 ## Purpose of each MS
 ### ms-authentication
 The goal of this microservice is to authenticate and authorize users and any request of the API.
 
-Unfortunately, as of right now it is not currently working properly.
+Unfortunately, I wasn't able to correctly implement it, so, as of right now it is not currently working properly.
 
 ### ms-gateway
 The gateway redirects the requests to the responsible api.
