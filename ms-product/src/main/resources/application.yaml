@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ms-products
+    name: products
   datasource:
     url: jdbc:postgresql://localhost:5432/challenge03
     username: postgres

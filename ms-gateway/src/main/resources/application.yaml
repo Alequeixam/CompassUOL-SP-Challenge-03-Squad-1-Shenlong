@@ -11,15 +11,15 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: ms-products
+        - id: products
           uri: http://localhost:8082/
           predicates:
-            - Path=/products/**
-        - id: ms-notification
+            - Path=/**
+        - id: notification
           uri: http://localhost:8083/
           predicates:
             - Path=/**
-        - id: ms-authorization
+        - id: authorization
           uri: http://localhost:8081/
           predicates:
             - Path=/**
